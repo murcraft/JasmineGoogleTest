@@ -1,12 +1,21 @@
-const path = require('chromedriver').path;
-const chrome = require('selenium-webdriver/chrome');
-const {Builder, By, Key, Capabilities, until} = require('selenium-webdriver');
+require('chromedriver');
+const {Builder, By, Key, until} = require('selenium-webdriver');
 
 
 const URL = "http://www.google.by";
 const headersResultsPath = "//div[@class='rc']/h3";
 
 describe("Test enter on Google", function() {
+
+
+    beforeAll(function (done) {
+        this.driver = new Builder().forBrowser('chrome').build();
+        this.driver.get(URL).then(done);
+    });
+
+    afterAll(function(done) {
+        this.driver.quit().then(done);
+    });
 
     beforeEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -16,20 +25,6 @@ describe("Test enter on Google", function() {
     afterEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-    });
-
-    beforeAll(function (done) {
-        let service = new chrome.ServiceBuilder(path).build();
-        chrome.setDefaultService(service);
-
-        this.driver = new Builder()
-            .withCapabilities(Capabilities.chrome()).build();
-
-        this.driver.get(URL).then(done);
-    });
-
-    afterAll(function(done) {
-        this.driver.quit().then(done);
     });
 
     it("Go to results page", function(done) {

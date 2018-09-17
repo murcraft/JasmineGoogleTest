@@ -1,12 +1,20 @@
-const path = require('chromedriver').path;
-const chrome = require('selenium-webdriver/chrome');
-const {Builder, By, Key, Capabilities, until} = require('selenium-webdriver');
-let webdriver = require('selenium-webdriver');
+require('chromedriver');
+const {Builder, By, Key, until } = require('selenium-webdriver');
 
 const URL = "http://www.google.by";
 const headersResultsPath = "//div[@class='rc']/h3";
 
 describe("Test searching on Google", function() {
+
+    beforeAll(async function () {
+        this.driver = new Builder().forBrowser('chrome').build();
+        await this.driver.get(URL);
+    });
+
+    afterAll(async function () {
+        await this.driver.quit();
+    });
+
     beforeEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
@@ -15,20 +23,6 @@ describe("Test searching on Google", function() {
     afterEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-    });
-
-    beforeAll(async function () {
-        let service = await new chrome.ServiceBuilder(path).build();
-        chrome.setDefaultService(service);
-
-        this.driver = await new Builder()
-            .withCapabilities(Capabilities.chrome()).build();
-        await this.driver.get(URL);
-
-        });
-
-    afterAll(async function () {
-        await this.driver.quit();
     });
 
     it("Go to results page", async function () {
