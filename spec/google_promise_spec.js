@@ -12,11 +12,10 @@ describe("Test enter on Google", function() {
         let service = new chrome.ServiceBuilder(path).build();
         chrome.setDefaultService(service);
 
-        this.driver = new Builder(done)
+        this.driver = new Builder()
             .withCapabilities(Capabilities.chrome()).build();
 
-        this.driver.get(URL)
-            .then(done);
+        this.driver.get(URL).then(done);
     });
 
     afterAll(function(done) {
@@ -34,6 +33,7 @@ describe("Test enter on Google", function() {
             expect(resolve.toLowerCase()).toContain("itechart");
         })
         .then(done);
+
     });
 
     it("Searching ITechArt titles in resuls", function(done) {
@@ -53,6 +53,7 @@ describe("Test enter on Google", function() {
             });
         })
         .then(done);
+
     });
 
 
