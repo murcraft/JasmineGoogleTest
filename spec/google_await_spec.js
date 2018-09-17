@@ -18,12 +18,12 @@ describe("Test searching on Google", function() {
     });
 
     beforeAll(async function () {
-            let service = await new chrome.ServiceBuilder(path).build();
-            chrome.setDefaultService(service);
+        let service = await new chrome.ServiceBuilder(path).build();
+        chrome.setDefaultService(service);
 
-            this.driver = await new Builder()
-                .withCapabilities(Capabilities.chrome()).build();
-            await this.driver.get(URL);
+        this.driver = await new Builder()
+            .withCapabilities(Capabilities.chrome()).build();
+        await this.driver.get(URL);
 
         });
 
@@ -62,6 +62,7 @@ describe("Test searching on Google", function() {
         let allResults = await this.driver.findElement(By.id("resultStats")).getText();
         let numberOfResults = allResults.split(" ").join("").match("(\\d+)([^(,])");
         console.log("Number of results: " + numberOfResults[0]);
+
         expect(numberOfResults[0]).toBeGreaterThan(10000);
     });
 
