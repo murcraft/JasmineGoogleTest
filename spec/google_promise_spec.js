@@ -2,6 +2,7 @@ const path = require('chromedriver').path;
 const chrome = require('selenium-webdriver/chrome');
 const {Builder, By, Key, Capabilities, until} = require('selenium-webdriver');
 
+
 const URL = "http://www.google.by";
 const headersResultsPath = "//div[@class='rc']/h3";
 
@@ -13,6 +14,7 @@ describe("Test enter on Google", function() {
 
         this.driver = new Builder(done)
             .withCapabilities(Capabilities.chrome()).build();
+
         this.driver.get(URL)
             .then(done);
     });

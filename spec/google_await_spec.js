@@ -26,9 +26,6 @@ describe("Test searching on Google", function() {
 
         it("Go to results page", async function (done) {
             console.log('*********1');
-            // await this.driver.wait()
-
-
             await this.driver.findElement(By.name('q')).sendKeys("ITechArt", Key.RETURN);
             let titlePage1 = await this.driver.wait(until.elementLocated(By.id("resultStats")));
             let titlePage = await this.driver.getTitle();
