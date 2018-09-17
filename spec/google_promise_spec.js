@@ -8,6 +8,14 @@ const headersResultsPath = "//div[@class='rc']/h3";
 
 describe("Test enter on Google", function() {
 
+    beforeEach(function() {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    });
+
+    afterEach(function() {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    });
+
     beforeAll(function (done) {
         let service = new chrome.ServiceBuilder(path).build();
         chrome.setDefaultService(service);
@@ -54,6 +62,19 @@ describe("Test enter on Google", function() {
         })
         .then(done);
 
+    });
+
+    it('Searching common amount of results in page', function (done) {
+        this.driver.findElement(By.id("resultStats"))
+            .then(resolve => {
+                return resolve.getText();
+            })
+            .then ( resolve => {
+                let numberOfResults = resolve.split(" ").join("").match("(\\d+)([^(,])");
+                console.log("Number of results: " + numberOfResults[0]);
+                expect(numberOfResults[0]).toBeGreaterThan(10000);
+            })
+            .then(done);
     });
 
 
