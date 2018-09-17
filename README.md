@@ -6,5 +6,5 @@ I have included a <b>chromedriver</b> folder in this repo, that you can cut and 
 <p>After this, use command:</p>
 <ul>
 <li>npm install</li>
-<li>npm run test spec\<i>filepath.js<i></li>
+<li>npm test spec\<i>filepath.js<i></li>
 </ul>
