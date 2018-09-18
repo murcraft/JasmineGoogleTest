@@ -2,14 +2,14 @@ const SearchPage = require("../lib/page/SearchPage");
 let InitDriver = require("../lib/driver/InitDriver");
 
 const {Builder, By, Key, until } = require('selenium-webdriver');
-const driver = new Builder().forBrowser('chrome').build();//InitDriver.getDriver();
+const driver = InitDriver.getDriver();
 const URL = "http://www.google.by";
 const headersResultsPath = "//div[@class='rc']/h3";
 
 describe("Test searching on Google", function() {
 
     beforeAll(async function () {
-        const driver = InitDriver.getDriver();
+        // const driver = InitDriver.getDriver();
         this.searchPage = new SearchPage(driver);
     });
 
