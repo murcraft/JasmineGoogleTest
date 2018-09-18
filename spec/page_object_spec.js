@@ -8,9 +8,9 @@ describe("Test searching on Google", function() {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
     });
 
-    afterAll(function(){
-        resultsPage.closePage();
-    })
+    afterAll(async function(){
+       await resultsPage.closePage();
+    });
 
     it("Check main page", async function () {
         await searchPage.openPage();
@@ -30,9 +30,8 @@ describe("Test searching on Google", function() {
     it("Searching ITechArt titles in resuls", async function () {
         let titles = await resultsPage.getResulsHeaders();
         console.log(titles);
-
-        // console.log("Number of titles: " + size);
-
+        let size = resultsPage.getNumberOfResults();
+        console.log("Number of RESULTS in method: " + size);
         titles.forEach(value => {
             expect(value).toMatch("iTechArt");
         });

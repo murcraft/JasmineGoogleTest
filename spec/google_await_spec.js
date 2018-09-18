@@ -38,7 +38,7 @@ describe("Test searching on Google", function() {
         let titles = await Promise.all(titelsArray);
         console.log(titles);
 
-        let size = titelsArray.length;
+        let size = await titelsArray.length;
         console.log("Number of titles: " + size);
 
         titles.forEach(value => {
