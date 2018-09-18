@@ -1,5 +1,5 @@
 require('chromedriver');
-const {Builder, By, Key, until } = require('selenium-webdriver');
+const { Builder, By, Key, until } = require('selenium-webdriver');
 
 const URL = "http://www.google.by";
 const headersResultsPath = "//div[@class='rc']/h3";
@@ -16,11 +16,6 @@ describe("Test searching on Google", function() {
     });
 
     beforeEach(function() {
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-    });
-
-    afterEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
     });
