@@ -38,5 +38,10 @@ describe("Test searching on Google", function() {
 
     });
 
+    it('Searching common amount of results in page', async function () {
+        let results = resultsPage.getNumberOfResults();
+        expect(results).toBeGreaterThan(10000);
+    });
+
 
 });
