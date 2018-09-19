@@ -1,5 +1,10 @@
-let searchPage = require("../lib/page/SearchPage");
+require("chromedriver");
+const webdriver = require('selenium-webdriver');
+let SearchPage = require("../lib/page/SearchPage");
 let resultsPage = require("../lib/page/ResultsPage");
+
+const driver = new webdriver.Builder().
+withCapabilities(webdriver.Capabilities.chrome()).build();
 
 const titlePage = "google";
 const titleOfResultsPage = "itechart";
@@ -7,6 +12,7 @@ const titleOfResultsPage = "itechart";
 describe("Test searching on Google", function() {
 
     beforeAll(async function() {
+        searchPage = await new SearchPage(driver);
         await searchPage.openPage();
     });
 
