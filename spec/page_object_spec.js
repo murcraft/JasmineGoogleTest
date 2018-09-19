@@ -1,8 +1,9 @@
 let SearchPage = require("../lib/page/SearchPage");
-let resultsPage = require("../lib/page/ResultsPage");
+let ResultsPage = require("../lib/page/ResultsPage");
 let DriverHandler = require("../lib/driver/DriverHandler");
 
 let searchPage;
+let resultsPage;
 let driver = null;
 const expectTitleSearchingPage = "google";
 const expectTitleResultsPage = "itechart";
@@ -26,7 +27,8 @@ describe("Test searching on Google", function () {
   });
 
   it("Check results page", async function () {
-    resultsPage = await searchPage.textRequireInField();
+    await searchPage.textRequireInField();
+    resultsPage = await new ResultsPage(driver);
     let titleOfResultsPage = await resultsPage.getPageTitle();
     await expect(titleOfResultsPage.toLowerCase()).toMatch(expectTitleResultsPage);
   });
