@@ -1,36 +1,38 @@
 let searchPage = require("../lib/page/SearchPage");
 let resultsPage = require("../lib/page/ResultsPage");
 
+const titlePage = "google";
+const titleOfResultsPage = "itechart";
+
 describe("Test searching on Google", function() {
+
+    beforeAll(async function() {
+        await searchPage.openPage();
+    });
+
+    afterAll(async function(){
+        await resultsPage.closePage();
+    });
 
     beforeEach(function() {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
     });
 
-    afterAll(async function(){
-       await resultsPage.closePage();
-    });
-
     it("Check main page", async function () {
-        await searchPage.openPage();
-        let title = await searchPage.getPageTitle();
-        console.log("Title of main page: ", title);
-        expect(title.toLowerCase()).toEqual("google");
+        let checkTrue = await searchPage.isSuitablePageTitle(titlePage);
+        expect(checkTrue).toBeTruthy();
     });
 
     it("Check results page", async function () {
         resultsPage = await searchPage.textRequireInField();
-        let title = await resultsPage.getPageTitle();
-        console.log("Title of main page: ", title);
-        expect(title.toLowerCase()).toMatch("itechart");
+        let checkTrue = await resultsPage.isSuitablePageTitle(titleOfResultsPage);
+        expect(checkTrue).toBeTruthy();
     });
 
     it("Searching ITechArt titles in results", async function () {
         let titles = await resultsPage.getResulsHeaders();
-        await console.log(titles);
-        let size = await resultsPage.getNumberOfResults();
-        await console.log("Number of results: ", size);
+        await resultsPage.printResultsHeaders();
         titles.forEach(value => {
             expect(value.toLowerCase()).toMatch("itechart");
         });
@@ -39,6 +41,7 @@ describe("Test searching on Google", function() {
 
     it("Searching common amount of results", async function () {
         let results = await resultsPage.getNumberOfResults();
+        await resultsPage.printNumberOfResults();
         expect(results).toBeGreaterThan(10000);
     });
 
