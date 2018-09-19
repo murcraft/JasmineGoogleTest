@@ -1,5 +1,3 @@
-/*require("chromedriver");
-const webdriver = require('selenium-webdriver');*/
 let SearchPage = require("../lib/page/SearchPage");
 let resultsPage = require("../lib/page/ResultsPage");
 let DriverHandler = require("../lib/driver/DriverHandler");
