@@ -1,8 +1,6 @@
 let searchPage = require("../lib/page/SearchPage");
 let resultsPage = require("../lib/page/ResultsPage");
 
-console.log('start', resultsPage);
-
 describe("Test searching on Google", function() {
 
     beforeEach(function() {
@@ -17,31 +15,29 @@ describe("Test searching on Google", function() {
     it("Check main page", async function () {
         await searchPage.openPage();
         let title = await searchPage.getPageTitle();
-        console.log(title);
-        console.log(searchPage);
+        console.log("Title of main page: ", title);
         expect(title.toLowerCase()).toEqual("google");
     });
 
-    it("Go to results page", async function () {
+    it("Check results page", async function () {
         resultsPage = await searchPage.textRequireInField();
         let title = await resultsPage.getPageTitle();
-        console.log(title);
+        console.log("Title of main page: ", title);
         expect(title.toLowerCase()).toMatch("itechart");
     });
 
-    it("Searching ITechArt titles in resuls", async function () {
-        console.log('ssssssssss', resultsPage);
+    it("Searching ITechArt titles in results", async function () {
         let titles = await resultsPage.getResulsHeaders();
         await console.log(titles);
         let size = await resultsPage.getNumberOfResults();
-        await console.log("Number of RESULTS in method: ", size);
+        await console.log("Number of results: ", size);
         titles.forEach(value => {
-            expect(value).toMatch("iTechArt");
+            expect(value.toLowerCase()).toMatch("itechart");
         });
 
     });
 
-    it('Searching common amount of results in page', async function () {
+    it("Searching common amount of results", async function () {
         let results = await resultsPage.getNumberOfResults();
         expect(results).toBeGreaterThan(10000);
     });
