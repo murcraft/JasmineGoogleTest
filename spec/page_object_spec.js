@@ -6,7 +6,7 @@ let searchPage;
 let resultsPage;
 let driver = null;
 const expectTitleSearchingPage = "google";
-const expectTitleResultsPage = "itechart";
+const expectedTitleResultsPage = "itechart";
 
 describe("Test searching on Google", function () {
 
@@ -30,7 +30,7 @@ describe("Test searching on Google", function () {
     await searchPage.textRequireInField();
     resultsPage = await new ResultsPage(driver);
     let titleOfResultsPage = await resultsPage.getPageTitle();
-    await expect(titleOfResultsPage.toLowerCase()).toMatch(expectTitleResultsPage);
+    await expect(titleOfResultsPage.toLowerCase()).toMatch(expectedTitleResultsPage);
   });
 
   it("Searching ITechArt titles in results", async function () {
@@ -44,7 +44,6 @@ describe("Test searching on Google", function () {
 
   it("Searching common amount of results", async function () {
     let results = await resultsPage.getNumberOfResults();
-    await resultsPage.printNumberOfResults();
     await expect(results).toBeGreaterThan(10000);
   });
 
