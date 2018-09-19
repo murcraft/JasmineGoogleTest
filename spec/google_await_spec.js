@@ -20,6 +20,11 @@ describe("Test searching on Google", function() {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
     });
 
+    afterEach(function() {
+        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+    });
+
     it("Go to results page", async function () {
         await this.driver.findElement(By.name('q')).sendKeys("ITechArt", Key.RETURN);
         let titlePage = await this.driver.getTitle();
