@@ -1,23 +1,23 @@
-require("chromedriver");
-const webdriver = require('selenium-webdriver');
+/*require("chromedriver");
+const webdriver = require('selenium-webdriver');*/
 let SearchPage = require("../lib/page/SearchPage");
 let resultsPage = require("../lib/page/ResultsPage");
+let DriverHandler = require("../lib/driver/DriverHandler");
 
-const driver = new webdriver.Builder().
-withCapabilities(webdriver.Capabilities.chrome()).build();
-
+let driver = null;
 const titlePage = "google";
 const titleOfResultsPage = "itechart";
 
 describe("Test searching on Google", function() {
 
     beforeAll(async function() {
+        driver = await DriverHandler.getInstance();
         searchPage = await new SearchPage(driver);
         await searchPage.openPage();
     });
 
     afterAll(async function(){
-        await resultsPage.closePage();
+        await DriverHandler.closeDriver();
     });
 
     beforeEach(function() {
