@@ -1,15 +1,15 @@
 'use strict';
-let SearchPage = require("../lib/page/SearchPage");
-let ResultsPage = require("../lib/page/ResultsPage");
-let DriverHandler = require("../lib/driver/DriverHandler");
+let SearchPage = require('../lib/page/SearchPage');
+let ResultsPage = require('../lib/page/ResultsPage');
+let DriverHandler = require('../lib/driver/DriverHandler');
 
 let searchPage;
 let resultsPage;
-let driver = null;
-const expectTitleSearchingPage = "google";
-const requestedWord = "itechart";
+let driver;
+const expectedTitleMainPage = 'google';
+const requestedWord = 'itechart';
 
-describe("Test searching on Google", function () {
+describe('Test searching on Google', function () {
 
   beforeAll(async function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
@@ -18,34 +18,33 @@ describe("Test searching on Google", function () {
   });
 
   afterAll(async function () {
-    DriverHandler.CloseDriver();
+    await DriverHandler.CloseDriver();
   });
 
-  it("Check main page", async function () {
+  it('Open main page and verify title', async function () {
     await searchPage.navigate();
     let titleOfSearchingPage = await searchPage.getPageTitle();
-    await expect(titleOfSearchingPage.toLowerCase()).toEqual(expectTitleSearchingPage);
+    await expect(titleOfSearchingPage.toLowerCase()).toEqual(expectedTitleMainPage, 'Title of searching page');
   });
 
-  it("Check results page", async function () {
-    await searchPage.textRequireInField();
-    resultsPage = await new ResultsPage(driver);
+  it('Search for keyword and verify title of results page', async function () {
+    await searchPage.enterRequiredWord();
+    resultsPage = new ResultsPage(driver);
     let titleOfResultsPage = await resultsPage.getPageTitle();
-    await expect(titleOfResultsPage.toLowerCase()).toMatch(requestedWord, "Title of results page contain");
+    await expect(titleOfResultsPage.toLowerCase()).toContain(requestedWord, 'Title of results page');
   });
 
-  it("Searching ITechArt titles in results", async function () {
+  it('Check the page headers for matching the requested word', async function () {
     let titles = await resultsPage.getResulsHeaders();
-    await resultsPage.printResultsHeaders();
     titles.forEach(async value => {
-      await expect(value.toLowerCase()).toMatch(requestedWord, "The requested word");
+      await expect(value.toLowerCase()).toMatch(requestedWord, 'The requested word');
     });
 
   });
 
-  it("Searching common amount of results", async function () {
-    let results = await resultsPage.getNumberOfResults();
-    await expect(results).toBeGreaterThan(10000, "Number of results");
+  it('Search for total results and check that this number is more than min', async function () {
+    let totalResults = await resultsPage.getNumberOfResults();
+    await expect(totalResults).toBeGreaterThan(10000, 'Min number of results');
   });
 
 
