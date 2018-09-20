@@ -1,4 +1,7 @@
-{"itechart" : "10000",
-"работа в itechart" : "5000",
-"laba itechtart" : "8000"
+{
+  "1": {"request": "itechart", "count": "10000"},
+  "2": {"request": "работа в itechart", "count": "5000"},
+  "3": {"request": "laba itechtart", "count": "8000"}
 }
+
+
