@@ -2,8 +2,9 @@
 let SearchPage = require('../lib/page/SearchPage')
 let ResultsPage = require('../lib/page/ResultsPage')
 let DriverHandler = require('../lib/driver/DriverHandler')
-let fs = require('fs')
-const {data} = require('./testData.json')
+const fs = require('fs')
+
+const data = require('./testData.json')
 
 let searchPage
 let resultsPage
@@ -24,9 +25,13 @@ describe('Test searching on Google', function () {
 
   it('Open main page and verify title', async function () {
 
-    let file = await JSON.parse(data);
-    await console.log(file);
+    let varir = await fs.readFile('D:\\Project\\JasmineGoogleTest\\spec\\testData.json', 'utf8', function (err, data) {
 
+      console.log('AAAAA', data)
+      return data
+    });
+    console.log('BBBBB', varir)
+    // let obj = JSON.parse(data);
     await searchPage.navigate()
     let titleOfSearchingPage = await searchPage.getPageTitle()
     await expect(titleOfSearchingPage.toLowerCase()).toEqual(expectedTitleMainPage, 'Title of searching page')
