@@ -1,3 +1,4 @@
+'use strict';
 let SearchPage = require("../lib/page/SearchPage");
 let ResultsPage = require("../lib/page/ResultsPage");
 let DriverHandler = require("../lib/driver/DriverHandler");
@@ -12,16 +13,16 @@ describe("Test searching on Google", function () {
 
   beforeAll(async function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-    driver = await DriverHandler.GetInstance();
+    driver = DriverHandler.GetInstance();
     searchPage = new SearchPage(driver);
   });
 
   afterAll(async function () {
-    await DriverHandler.CloseDriver();
+    DriverHandler.CloseDriver();
   });
 
   it("Check main page", async function () {
-    await searchPage.openPage();
+    await searchPage.navigate();
     let titleOfSearchingPage = await searchPage.getPageTitle();
     await expect(titleOfSearchingPage.toLowerCase()).toEqual(expectTitleSearchingPage);
   });
