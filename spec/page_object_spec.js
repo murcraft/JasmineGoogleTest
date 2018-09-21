@@ -11,7 +11,7 @@ let resultsPage
 let driver
 const expectedTitleMainPage = 'google'
 const requestedWord = 'itechart'
-const pathTestData = './spec/testData.json'
+const pathTestData = './lib/test/test_data.json'
 
 describe('Test searching on Google', function () {
   beforeAll(async function () {
@@ -59,7 +59,8 @@ describe('Test searching on Google', function () {
     it('Search for total results and check that this number is more than min',
       async function () {
         let totalResults = await resultsPage.getNumberOfResults()
-        await expect(totalResults).toBeGreaterThan(data.count, 'Min number of results')
+        // let total = Number.parseInt(totalResults)
+        await expect(totalResults).not.toBeLessThan(data.count, 'Min number of results')
       })
 
   })
