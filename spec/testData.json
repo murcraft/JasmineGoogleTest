@@ -1,7 +1,7 @@
-{
-  "1": {"request": "itechart", "count": "10000"},
-  "2": {"request": "работа в itechart", "count": "5000"},
-  "3": {"request": "laba itechtart", "count": "8000"}
-}
+[
+  {"request": "itechart", "count": "10000"},
+  {"request": "работа в itechart", "count": "5000"},
+  {"request": "laba itechtart", "count": "80000"}
+]
 
 
