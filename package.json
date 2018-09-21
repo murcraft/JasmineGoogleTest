@@ -12,6 +12,7 @@
     "chromedriver": "^2.41.0",
     "geckodriver": "^1.12.2",
     "jasmine": "^3.2.0",
+    "jasmine-data-provider": "^2.2.0",
     "mz": "^2.7.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "xmlhttprequest": "^1.8.0"
