@@ -9,7 +9,6 @@ let searchPage
 let resultsPage
 let driver
 const expectedTitleMainPage = 'google'
-const requestedWord = 'itechart'
 
 describe('Test searching on Google', function () {
   beforeAll(async function () {
@@ -41,7 +40,7 @@ describe('Test searching on Google', function () {
       async function () {
         let titles = await resultsPage.getResulsHeaders()
         titles.forEach(async value => {
-          await expect(value.toLowerCase()).toMatch(requestedWord, 'The requested word')
+          await expect(value.toLowerCase()).toMatch(data.request, 'The requested word')
         })
       })
 
