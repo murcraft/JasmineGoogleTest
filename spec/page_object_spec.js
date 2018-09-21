@@ -3,7 +3,7 @@ let SearchPage = require('../lib/page/SearchPage')
 let ResultsPage = require('../lib/page/ResultsPage')
 let DriverHandler = require('../lib/driver/DriverHandler')
 let using = require('jasmine-data-provider')
-const fs = require('mz/fs')
+const fs = require('fs')
 
 let dataTest
 let searchPage
@@ -14,27 +14,26 @@ const requestedWord = 'itechart'
 const pathTestData = './spec/testData.json'
 
 describe('Test searching on Google', function () {
+  beforeAll(async function () {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000
+    driver = await DriverHandler.GetInstance()
+    searchPage = new SearchPage(driver)
+  })
+
+  afterAll(async function () {
+    await DriverHandler.CloseDriver()
+  })
 
   function myReadfile () {
     try {
       let test = fs.readFileSync(pathTestData, 'utf8')
       return JSON.parse(test)
+      return test
     }
     catch (err) { console.error(err) }
   }
 
   using(dataTest = myReadfile(), function (data) {
-
-    beforeAll(async function () {
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000
-      driver = await DriverHandler.GetInstance()
-      searchPage = new SearchPage(driver)
-    })
-
-    afterAll(async function () {
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000
-      await DriverHandler.CloseDriver()
-    })
 
     it('Open main page and verify title', async function () {
       await searchPage.navigate()
@@ -53,7 +52,7 @@ describe('Test searching on Google', function () {
       async function () {
         let titles = await resultsPage.getResulsHeaders()
         titles.forEach(async value => {
-          await expect(value.toLowerCase()).toMatch(data.request, 'The requested word')
+          await expect(value.toLowerCase()).toMatch(requestedWord, 'The requested word')
         })
       })
 
