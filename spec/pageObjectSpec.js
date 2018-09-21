@@ -3,14 +3,13 @@ let SearchPage = require('../lib/page/searchPage')
 let ResultsPage = require('../lib/page/resultsPage')
 let DriverHandler = require('../lib/driver/driverHandler')
 let using = require('jasmine-data-provider')
-let dataTest = require('../lib/test/test_data.json')
+let dataTest = require('../lib/test/testData.json')
 
 let searchPage
 let resultsPage
 let driver
 const expectedTitleMainPage = 'google'
 const requestedWord = 'itechart'
-const pathTestData = './lib/test/test_data.json'
 
 describe('Test searching on Google', function () {
   beforeAll(async function () {
@@ -49,7 +48,7 @@ describe('Test searching on Google', function () {
     it('Search for total results and check that this number is more than min',
       async function () {
         let totalResults = await resultsPage.getNumberOfResults()
-        await expect(totalResults).not.toBeLessThan(data.count, 'Min number of results')
+        await expect(totalResults).toBeGreaterThan(data.count, 'Min number of results')
       })
 
   })
