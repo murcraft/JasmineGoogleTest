@@ -3,9 +3,8 @@ let SearchPage = require('../lib/page/searchPage')
 let ResultsPage = require('../lib/page/resultsPage')
 let DriverHandler = require('../lib/driver/driverHandler')
 let using = require('jasmine-data-provider')
-const fs = require('fs')
+let dataTest = require('../lib/test/test_data.json')
 
-let dataTest
 let searchPage
 let resultsPage
 let driver
@@ -24,16 +23,7 @@ describe('Test searching on Google', function () {
     await DriverHandler.CloseDriver()
   })
 
-  function myReadfile () {
-    try {
-      let test = fs.readFileSync(pathTestData, 'utf8')
-      return JSON.parse(test)
-      return test
-    }
-    catch (err) { console.error(err) }
-  }
-
-  using(dataTest = myReadfile(), function (data) {
+  using(dataTest, function (data) {
 
     it('Open main page and verify title', async function () {
       await searchPage.navigate()
