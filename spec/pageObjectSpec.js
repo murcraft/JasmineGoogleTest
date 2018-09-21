@@ -47,7 +47,7 @@ describe('Test searching on Google', function () {
     it('Search for total results and check that this number is more than min',
       async function () {
         let totalResults = await resultsPage.getNumberOfResults()
-        await expect(totalResults).toBeGreaterThan(data.count, 'Min number of results')
+        await expect(totalResults).toBeGreaterThan(Number.parseInt(data.count), 'Min number of results')
       })
 
   })
