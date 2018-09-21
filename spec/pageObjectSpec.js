@@ -1,7 +1,7 @@
 'use strict'
-let SearchPage = require('../lib/page/SearchPage')
-let ResultsPage = require('../lib/page/ResultsPage')
-let DriverHandler = require('../lib/driver/DriverHandler')
+let SearchPage = require('../lib/page/searchPage')
+let ResultsPage = require('../lib/page/resultsPage')
+let DriverHandler = require('../lib/driver/driverHandler')
 let using = require('jasmine-data-provider')
 const fs = require('fs')
 
@@ -59,7 +59,6 @@ describe('Test searching on Google', function () {
     it('Search for total results and check that this number is more than min',
       async function () {
         let totalResults = await resultsPage.getNumberOfResults()
-        // let total = Number.parseInt(totalResults)
         await expect(totalResults).not.toBeLessThan(data.count, 'Min number of results')
       })
 
