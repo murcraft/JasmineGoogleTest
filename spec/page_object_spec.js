@@ -2,7 +2,7 @@
 let SearchPage = require('../lib/page/SearchPage')
 let ResultsPage = require('../lib/page/ResultsPage')
 let DriverHandler = require('../lib/driver/DriverHandler')
-let using = require('jasmine-data-provider');
+let using = require('jasmine-data-provider')
 const fs = require('mz/fs')
 
 let dataTest
@@ -14,7 +14,6 @@ const requestedWord = 'itechart'
 const pathTestData = './spec/testData.json'
 
 describe('Test searching on Google', function () {
-
 
   describe('Test searching on Google', function () {
     async function myReadfile () {
@@ -58,13 +57,13 @@ describe('Test searching on Google', function () {
         })
       })
 
-  it('Search for total results and check that this number is more than min',
-    async function () {
-      let totalResults = await resultsPage.getNumberOfResults()
-      using(dataTest, async function (data) {
-        await expect(totalResults).toBeGreaterThan(data.count, 'Min number of results')
+    it('Search for total results and check that this number is more than min',
+      async function () {
+        let totalResults = await resultsPage.getNumberOfResults()
+        using(dataTest, async function (data) {
+          await expect(totalResults).toBeGreaterThan(data.count, 'Min number of results')
+        })
       })
-    })
 
   })
 
