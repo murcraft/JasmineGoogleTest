@@ -8,7 +8,6 @@ let dataTest = require('../lib/test/testData.json')
 let searchPage
 let resultsPage
 let driver
-const expectedTitleMainPage = 'google'
 
 describe('Test searching on Google', function () {
   beforeAll(async function () {
@@ -26,7 +25,7 @@ describe('Test searching on Google', function () {
     it('Open main page and verify title', async function () {
       await searchPage.navigate()
       let titleOfSearchingPage = await searchPage.getPageTitle()
-      await expect(titleOfSearchingPage.toLowerCase()).toEqual(expectedTitleMainPage, 'Title of searching page')
+      await expect(titleOfSearchingPage.toLowerCase()).toEqual(data.title, 'Title of searching page')
     })
 
     it('Search for keyword and verify title of results page', async function () {
